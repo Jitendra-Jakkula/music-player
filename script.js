@@ -196,3 +196,25 @@ repeatBtn.addEventListener("click",()=>{
 
 
 
+//key mapping
+document.addEventListener("keydown",(e)=>{
+    console.log(document.activeElement.type)
+    if(document.activeElement.tagName === "INPUT" && document.activeElement.type === "range"){return;}
+   if (e.key === "ArrowRight") {
+        nextSong();
+    }
+    
+    e.preventDefault();
+
+    if (e.key === "ArrowLeft") {
+        prevSong();
+    }
+    if(e.key === " "){
+        togglePlay();
+    }
+});
+
+
+// document.activeElement => key curretn foucns *** and e.currentTarge and data-* 
+// document.activeElement.tagName
+console.log(document.activeElement);
