@@ -9,11 +9,12 @@
 <body>
     <div class="container">
         <div class="artwork">
-            <p>Image Artwork</p>
+            <img class="artwork-img">
         </div>
         <div class="song-info">
             <h2>Song Title</h2>
             <p> Artist Name</p>
+            <p id="status"></p>
         </div>
 
         <div class="progress-section">
@@ -34,12 +35,22 @@
         </div>
 
         <div class="volume-control">
-            <div class="icon">V</div>
+            <div class="icon"><button class="mute">Mute</button></div>
             <input type="range" min="0" max="100" value="50" class="volume-bar">
+        </div>
+        <div>
+            <select class="speed">
+    <option value="0.5">0.5×</option>
+    <option value="0.75">0.75×</option>
+    <option value="1" selected>1×</option>
+    <option value="1.25">1.25×</option>
+    <option value="1.5">1.5×</option>
+    <option value="2">2×</option>
+</select>
         </div>
         <div class="playlist">
             <div>
-                <button class="shuffle">Shuff</button>
+                <button class="shuffle">Shuffle Off</button>
                 <button class="repeat">Repeat</button>
             </div>
             <div>
@@ -51,6 +62,16 @@
         </div>
 
     </div>
+    <input
+    type="text"
+    class="playlist-search"
+    placeholder="Search songs..."
+>
+
+<div class="queue">
+  <h3>UP NEXT</h3>
+  <ol class="queue-list"></ol>
+</div>
     <script src="script.js"></script>
 </body>
 </html>
