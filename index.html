@@ -1,77 +1,294 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="dark">
+
     <title>Music Player</title>
-    <link rel = "stylesheet" href = "style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Inter:wght@400;500;600&display=swap"
+        rel="stylesheet"
+    >
+
+    <link rel="stylesheet" href="style.css">
+
+    <script src="https://unpkg.com/lucide@latest"></script>
 </head>
+
 <body>
-    <div class="container">
-        <div class="artwork">
-            <img class="artwork-img">
-        </div>
-        <div class="song-info">
-            <h2>Song Title</h2>
-            <p> Artist Name</p>
-            <p id="status"></p>
-        </div>
 
-        <div class="progress-section">
-            <div class="progress-bar">
-                <div class="currtime">
-                    0:00
+    <canvas
+        class="space-bg"
+        id="space-bg"
+        aria-hidden="true">
+    </canvas>
+
+
+    <main class="container">
+
+        <!-- ================= PLAYER ================= -->
+
+        <div class="player-column">
+
+            <!-- ARTWORK -->
+
+            <div class="artwork">
+
+                <img
+                    class="artwork-img"
+                    alt="Album artwork"
+                >
+
+                <div
+                    class="artwork-ring"
+                    aria-hidden="true">
                 </div>
-                <input type="range" min="0" max="100" value="0" class="progress">
-                <div class="totaltime">
-                    
+
+                <!-- <button
+                    class="artwork-toggle"
+                    type="button"
+                    aria-label="Change artwork style"
+                    title="Change artwork style"
+                >
+                    <i data-lucide="square"></i>
+                </button> -->
+
+            </div>
+
+
+            <!-- SONG INFO -->
+
+            <section class="song-info">
+
+                <h2>Song Title</h2>
+
+                <p>Artist Name</p>
+
+                <p
+                    id="status"
+                    role="status">
+                </p>
+
+            </section>
+
+
+            <!-- PROGRESS + CONTROLS -->
+
+            <section class="progress-section">
+
+                <div class="progress-bar">
+
+                    <span class="currtime">
+                        0:00
+                    </span>
+
+                    <input
+                        type="range"
+                        min="0"
+                        max="100"
+                        value="0"
+                        class="progress"
+                        aria-label="Song progress"
+                    >
+
+                    <span class="totaltime">
+                        0:00
+                    </span>
+
                 </div>
-            </div>
-            <div class="controls">
-                <button class="prev">Prev</button>
-                <button class="play">Play</button>
-                <button class="next">Next</button>
-            </div>
+
+
+                <div class="controls">
+
+                    <button
+                        class="prev"
+                        aria-label="Previous song"
+                        title="Previous"
+                        type="button"
+                    >
+                        <i data-lucide="skip-back"></i>
+                    </button>
+
+
+                    <button
+                        class="play"
+                        aria-label="Play or pause"
+                        title="Play"
+                        type="button"
+                    >
+                        <i data-lucide="play"></i>
+                    </button>
+
+
+                    <button
+                        class="next"
+                        aria-label="Next song"
+                        title="Next"
+                        type="button"
+                    >
+                        <i data-lucide="skip-forward"></i>
+                    </button>
+
+                </div>
+
+            </section>
+
+
+            <!-- VOLUME + SPEED -->
+
+            <section class="secondary-controls">
+
+                <div class="volume-control">
+
+                    <button
+                        class="mute"
+                        aria-label="Mute or unmute"
+                        title="Mute"
+                        type="button"
+                    >
+                        <i data-lucide="volume-2"></i>
+                    </button>
+
+                    <input
+                        type="range"
+                        min="0"
+                        max="100"
+                        value="50"
+                        class="volume-bar"
+                        aria-label="Volume"
+                    >
+
+                </div>
+
+
+                <div class="speed-wrapper">
+
+                    <label for="speed-select">
+                        Speed
+                    </label>
+
+                    <select
+                        id="speed-select"
+                        class="speed"
+                        aria-label="Playback speed"
+                        title="Playback speed"
+                    >
+                        <option value="0.5">0.5×</option>
+                        <option value="0.75">0.75×</option>
+                        <option value="1" selected>1×</option>
+                        <option value="1.25">1.25×</option>
+                        <option value="1.5">1.5×</option>
+                        <option value="2">2×</option>
+                    </select>
+
+                </div>
+
+            </section>
+
         </div>
 
-        <div class="volume-control">
-            <div class="icon"><button class="mute">Mute</button></div>
-            <input type="range" min="0" max="100" value="50" class="volume-bar">
-        </div>
-        <div>
-            <select class="speed">
-    <option value="0.5">0.5×</option>
-    <option value="0.75">0.75×</option>
-    <option value="1" selected>1×</option>
-    <option value="1.25">1.25×</option>
-    <option value="1.5">1.5×</option>
-    <option value="2">2×</option>
-</select>
-        </div>
-        <div class="playlist">
-            <div>
-                <button class="shuffle">Shuffle Off</button>
-                <button class="repeat">Repeat</button>
-            </div>
-            <div>
-            <h3>Playlist</h3>
-            <ol>
-                
-            </ol>
-            </div>
+
+        <!-- ================= RIGHT SIDE ================= -->
+
+        <div class="side-column">
+
+            <!-- PLAYLIST -->
+
+            <section class="playlist">
+
+                <div class="playlist-actions">
+
+                    <button
+                        class="shuffle"
+                        aria-label="Shuffle"
+                        title="Shuffle"
+                        type="button"
+                    >
+                        <i data-lucide="shuffle"></i>
+                        <span>Shuffle Off</span>
+                    </button>
+
+
+                    <button
+                        class="repeat"
+                        aria-label="Repeat"
+                        title="Repeat"
+                        type="button"
+                    >
+                        <i data-lucide="repeat"></i>
+                        <span>Repeat off</span>
+                    </button>
+
+                </div>
+
+
+                <div class="playlist-content">
+
+                    <div class="playlist-heading">
+
+                        <h3>
+                            Playlist
+                        </h3>
+
+                        <input
+                            type="text"
+                            class="playlist-search"
+                            placeholder="Search songs..."
+                            aria-label="Search songs"
+                        >
+
+                    </div>
+
+
+                    <ol>
+                        <!-- Songs generated by JavaScript -->
+                    </ol>
+
+                </div>
+
+            </section>
+
+
+            <!-- UP NEXT -->
+
+            <section class="queue">
+
+                <div class="queue-heading">
+
+                    <h3>
+                        Up Next
+                    </h3>
+
+                </div>
+
+
+                <ol class="queue-list">
+                    <!-- Queue generated by JavaScript -->
+                </ol>
+
+            </section>
+
         </div>
 
-    </div>
-    <input
-    type="text"
-    class="playlist-search"
-    placeholder="Search songs..."
->
+    </main>
 
-<div class="queue">
-  <h3>UP NEXT</h3>
-  <ol class="queue-list"></ol>
-</div>
+
+    <script>
+        lucide.createIcons();
+    </script>
+
     <script src="script.js"></script>
+
+    <script src="space-bg.js"></script>
+
+    <script src="ui-enhancements.js"></script>
+
 </body>
+
 </html>
